@@ -1,41 +1,45 @@
-const { DataTypes } = require('Sequelize');
+const Sequelize = require('Sequelize');
 
 const DB = require('../config/db.config');
 
-const User = DB.define('User', {
-    userId: {
-        type: Datatypes.INTEGER(10),
-        primaryKey: true,
-        autoIncrement: true
+const User = DB.define('Users', { 
+    firstname: {
+        type: Sequelize.STRING,
+        
     },
     lastname: {
-        type: Datatypes.STRING,
-        defaultValue: '',
-        allowNull: false
-    },
-    firstname: {
-        type: Datatypes.STRING,
-        defaultValue: '',
-        allowNull: false
+        type: Sequelize.STRING,
+        
     },
     email: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
+        defaultValue: '',
         validate:{
             isEmail: true
         }
     },
     password: {
-        type: Datatypes.STRING(64),
+        type: Sequelize.STRING(64),
         is: /^[0-9a-f]{64}$/i
     },
     isAdmin: {
-        type: Datatypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
     },
     picture: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: '',
         allowNull: true
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false
     }
+}, {
+    tableName: 'users'
 });
 
 module.exports = User;

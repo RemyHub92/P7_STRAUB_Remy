@@ -4,17 +4,14 @@ const fs = require('fs');
 exports.createMessage = (req, res, next) => {
   const message = {
     userId: req.body.userId,
-    title: req.body.title,
     content: req.body.content,
     image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
     createdAt: Utils.getSqlDate(),
     updatedAt: Utils.getSqlDate()
   };
   Message.create(message)
-    .then(() => res.status(201).json({
-      message: "Message envoyé!"
-    }))
-    .catch(error => res.status(400).json({
+    .then(message => res.status(200).json(message))
+    .catch(error => res.status(404).json({
       error
     }));
 };

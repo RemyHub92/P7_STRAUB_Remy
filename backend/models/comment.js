@@ -1,26 +1,28 @@
-const { Datatypes} = require('sequelize');
+const Sequelize = require('sequelize');
 
 const DB = require('../config/db.config');
 
 const Comment = DB.define('Comment', { 
     userId: {
-        type: Datatypes.INTEGER,
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    messageId: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     content: {
-        type: Datatypes.TEXT,
-        defaultValue: '',
+        type: Sequelize.TEXT,
         allowNull: false
     },
     createdAt: {
-        type: Datatypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false
     },
     updatedAt: {
-        type: Datatypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false
     }
-  
 });
 
 module.exports = Comment;

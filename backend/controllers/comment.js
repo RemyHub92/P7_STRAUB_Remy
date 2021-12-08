@@ -5,26 +5,15 @@ const fs = require('fs');
 exports.createComment = (req, res, next) => {
     const newComment = new Comment({
         userId: req.body.userId,
+        messageId: req.body.messageId,
         content: req.body.content,
         createdAt: Utils.getSqlDate(),
         updatedAt: Utils.getSqlDate(),
     });
 
-    Comment.create(newComment, (err, data) => {
-        if (err) {
-            return res.status(400).json({
-                message: "From Back Impossible de créer le commentaire"
-            });
-        }
-        Comment.latest((err, result) => {
-            res.send({
-                message_id: result.message_id,
-                comment_id: result.id,
-                comment_pseudo: result.pseudo,
-                comment_content: result.comment
-            });
-        });
-    })
+    Comment.create(newComment)  
+        .then(() => res.status(201).json({ message: "Réponse envoyée !" }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 

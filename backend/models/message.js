@@ -1,36 +1,29 @@
-const { Datatypes} = require('sequelize');
+const Sequelize = require('sequelize');
 
 const DB = require('../config/db.config');
 
 const Message = DB.define('Message', { 
     userId: {
-        type: Datatypes.INTEGER,
-        allowNull: false
-    },
-    title: {
-        type: Datatypes.STRING,
-        defaultValue: '',
-        allowNull: false
+        type: Sequelize.INTEGER,
+        allowNull: false,
     },
     content: {
-        type: Datatypes.TEXT,
-        defaultValue: '',
-        allowNull: false
-    },
-    createdAt: {
-        type: Datatypes.DATE,
-        allowNull: false
-    },
-    updatedAt: {
-        type: Datatypes.DATE,
+        type: Sequelize.TEXT,
         allowNull: false
     },
     image: {
-        type: Datatypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: '',
         allowNull: true
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false
     }
-  
 });
 
 module.exports = Message;
