@@ -8,20 +8,17 @@ exports.signup = (req, res, next) => {
     console.log(req.body);
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
-            const user = new User({
+            User.create({
                 lastname: req.body.lastname,
                 firstname: req.body.firstname,
                 email: req.body.email,
                 password: hash,
                 isAdmin: false,
-            });
-            console.log(user);
-            User.create(user)
-                .then(message => res.status(200).json(message))
-                .catch(error => res.status(404).json({
-                    error
-                }));
-
+            })
+            .then(user => res.status(200).json(user))
+            .catch(error => res.status(404).json({
+                error
+              }));
         })
       
 };

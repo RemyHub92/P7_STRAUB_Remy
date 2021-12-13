@@ -3,17 +3,18 @@ const fs = require('fs');
 
 
 exports.createComment = (req, res, next) => {
-    const newComment = new Comment({
+    Comment({
         userId: req.body.userId,
         messageId: req.body.messageId,
         content: req.body.content,
         createdAt: Utils.getSqlDate(),
         updatedAt: Utils.getSqlDate(),
     });
-
     Comment.create(newComment)  
-        .then(() => res.status(201).json({ message: "Réponse envoyée !" }))
-        .catch(error => res.status(400).json({ error }));
+    .then(message =>  res.status(200).json(message))
+    .catch(error => res.status(404).json({
+      error
+    }));
 };
 
 

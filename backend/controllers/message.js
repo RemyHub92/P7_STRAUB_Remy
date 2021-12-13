@@ -2,19 +2,21 @@ const Message = require('../models/message');
 const fs = require('fs');
 
 exports.createMessage = (req, res, next) => {
-  const message = {
-    userId: req.body.userId,
-    content: req.body.content,
-    image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
-    createdAt: Utils.getSqlDate(),
-    updatedAt: Utils.getSqlDate()
-  };
-  Message.create(message)
+  Message({
+      userId: req.body.userId,
+      content: req.body.content,
+      image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null,
+      createdAt: Utils.getSqlDate(),
+      updatedAt: Utils.getSqlDate()
+    })
+    Message.create(Message)
     .then(message => res.status(200).json(message))
     .catch(error => res.status(404).json({
       error
     }));
 };
+
+
 
 
 exports.deleteMessage = (req, res, next) => {
